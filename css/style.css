@@ -5,8 +5,9 @@
 
 .keyboard-area {
   margin: 5em auto;
-  max-width: 70rem;
-  max-height: 40rem;
+  min-width: 500px;
+  max-width: 1000px;
+  height: 38rem;
 
   background: #373737;
   border: 3px solid #191919;
@@ -18,14 +19,14 @@
   justify-content: space-between;
   align-items: center;
 
-  margin: 0.7em 2em;
+  margin: 0.7em 2em; 
 
   text-align: center;
   color: #ffffff;
 }
 
 .header__name {
-  align-self: center;
+  margin: 0 0 0 15%;
   font-size: 2em;
 }
 
@@ -34,11 +35,11 @@
   font-size: 0.8em;
 }
 
-.textarea {
+.keyboard-area__textarea {
   display: block;
   width: 96%;
   height: 10em;
-  margin: 0.5em auto;
+  margin: 1em auto;
   padding: 0.5em;
   font-size: 1.3em;
   color: #ffffff;
@@ -55,7 +56,21 @@
 
   width: auto;
   height: auto;
-  margin: 0.3em;
+  margin: 0.5em;
+}
+
+.header__language {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5em;
+  width: 2.5em;
+  font-size: 1.4em;
+  color: #191919;
+  background: #029516;
+  border: 2px solid #191919;
+  border-radius: 0.3em;
+
 }
 
 .key {
@@ -75,19 +90,24 @@
 
 .key:active {
   color: #191919;
-  background: #7b7b7b;
+  background: #b9b9b9;
+  border: 2px solid #b9b9b9;
+}
+
+.key_active {
+  color: #191919;
+  background: #b9b9b9;
+  border: 2px solid #b9b9b9;
 }
 
 .keyboard__key_small {
   width: 3em;
-
   font-size: 1.2em;
 }
 
 .keyboard__key_medium {
   width: 100%;
-
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 .keyboard__key_raw-1 {

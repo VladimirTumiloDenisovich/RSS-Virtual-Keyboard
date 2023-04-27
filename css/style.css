@@ -27,7 +27,6 @@
   height: 100%;
   opacity: 1;
   background: #000000;  background-image: url('../assets/background-img.png');
-
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
@@ -37,10 +36,11 @@
   position: relative;
   z-index: 2;
 
-  margin: 5em auto;
-  min-width: 500px;
+  margin: 2em auto;
+  min-width: 560px;
   max-width: 1000px;
-  height: 42rem;
+  min-height: 30rem;
+  max-height: 39rem;
 
   font-family: "Atures 300 Personal Use Only", 'Comfortaa', sans-serif;;
 
@@ -123,13 +123,12 @@
 }
 
 .key {
-  height: 3em;
+  height: 2.5em;
   color: #c3c082;
   background: #191919;
   border: 2px solid #191919;
   border-radius: 0.3em;
   font-family: 'Comfortaa', sans-serif;
-
 
   transition: .2s;
 }
@@ -152,7 +151,7 @@
 }
 
 .keyboard__key_small {
-  width: 3em;
+  width: 2.5em;
   font-size: 1.2em;
 }
 
@@ -198,4 +197,35 @@
 
 .key_position-end {
   justify-self: start;
+}
+
+
+@media screen and (max-width: 850px) {
+
+  .body::before {
+    min-width: 37rem;
+  }
+
+  .keyboard-area {
+    margin: 2em 1em;
+  }
+
+  .keyboard__container {
+    gap: 0.2em;
+  }
+
+  .key {
+    height: 1.7em;
+  }
+
+  .keyboard__key_small {
+    width: 1.7em;
+    font-size: 1em;
+  }
+  
+  .keyboard__key_medium {
+    width: 100%;
+    font-size: 0.8em;
+  }
+  
 }

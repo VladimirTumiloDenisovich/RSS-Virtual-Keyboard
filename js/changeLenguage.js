@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable no-restricted-syntax */
 import {
   engLowerCase, rusLowerCase, engCaps, rusCaps, boolen,
 } from './keyLayout.js';

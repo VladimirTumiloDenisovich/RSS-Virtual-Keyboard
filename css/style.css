@@ -85,6 +85,7 @@
   font-family: "Atures 500 Personal Use Only", 'Comfortaa', sans-serif;;
   font-size: 0.8em;
   line-height: 1.3em;
+  letter-spacing: 0.em;
 }
 
 .info__text {
@@ -130,7 +131,7 @@
   border-radius: 0.3em;
   font-family: 'Comfortaa', sans-serif;
 
-  transition: .2s;
+  transition: .0s;
 }
 
 .key:hover {

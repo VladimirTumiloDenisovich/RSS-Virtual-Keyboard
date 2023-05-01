@@ -123,7 +123,22 @@ keyboard.addEventListener('keyup', (event) => {
 const textArea = document.querySelector('.keyboard-area__textarea');
 
 function getCaretPos(obj) {
-  return obj.selectionStart;
+  if (obj.selectionStart) {
+    return obj.selectionStart;
+  }
+  if (document.selection) {
+    obj.focus();
+    const r = document.selection.createRange();
+    if (r == null) {
+      return 0;
+    }
+    const re = obj.createTextRange();
+    const rc = re.duplicate();
+    re.moveToBookmark(r.getBookmark());
+    rc.setEndPoint('EndToStart', re);
+    return rc.text.length;
+  }
+  return 0;
 }
 
 function setSelectionRange(input, selectionStart, selectionEnd) {
@@ -149,6 +164,14 @@ function backspaceBtn(position) {
   result = result.join('');
 }
 
+function backspaceMouseBtn(position) {
+  const caretPos = position;
+  result = result.split('');
+  result.splice(caretPos - 1, 1);
+  textArea.value = result.join('');
+  result = result.join('');
+}
+
 function deleteBtn(position) {
   const caretPos = position;
   result = result.split('');
@@ -165,11 +188,19 @@ function enterBtn(position) {
   result = result.join('');
 }
 
+function enterMouseBtn(position) {
+  const caretPos = position;
+  result = result.split('');
+  result.splice(caretPos, 0, '\r');
+  textArea.value = result.join('');
+  result = result.join('');
+}
+
 function updateValue() {
   const caretPos = getCaretPos(textArea);
   result = result.split('');
   if (activeKey !== '') {
-    result.splice(caretPos, 0, activeKey);
+    result.splice(caretPos - 1, 0, activeKey);
   }
   textArea.value = result.join('');
   result = result.join('');
@@ -189,7 +220,49 @@ function updateValue() {
   setSelectionRange(textArea, caretPos, caretPos);
 }
 
+function mouseUpdateValue(key) {
+  const caretPos = getCaretPos(textArea);
+  activeKey = key;
+  result = result.split('');
+  if (activeKey !== '') {
+    result.splice(caretPos, 0, activeKey);
+  }
+  textArea.value = result.join('');
+  result = result.join('');
+
+  if (activeKeyboard.array[indexPressKey] === 'Backspace') {
+    backspaceMouseBtn(caretPos);
+  }
+
+  if (activeKeyboard.array[indexPressKey] === 'Del') {
+    deleteBtn(caretPos);
+  }
+
+  if (activeKeyboard.array[indexPressKey] === 'Enter') {
+    enterMouseBtn(caretPos);
+  }
+
+  textArea.focus();
+}
+
 textArea.addEventListener('input', updateValue);
+
+keyboard.addEventListener('click', (event) => {
+  if (event.target.localName === 'button') {
+    if (event.target.innerText === '') {
+      return mouseUpdateValue(' ');
+    }
+    indexPressKey = activeKeyboard.array.findIndex((key) => key === event.target.innerText);
+    if (exceptions.indexOf(indexPressKey) === -1) {
+      activeKey = activeKeyboard.array[indexPressKey];
+    } else {
+      activeKey = '';
+    }
+
+    return mouseUpdateValue(activeKey);
+  }
+  return NaN;
+});
 
 export {
   generationKeys, allBtn, activeKeyboard,

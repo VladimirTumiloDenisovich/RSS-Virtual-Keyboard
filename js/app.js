@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import {
   codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase, engCaps, rusCaps,
   exceptions, boolen,

@@ -8,6 +8,9 @@ const isEng = {
   boo: true,
 };
 
+isEng.boo = JSON.parse(localStorage.getItem('language'));
+
 export {
-  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase, exceptions, isEng,
+  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase,
+  exceptions, isEng,
 };

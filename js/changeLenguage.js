@@ -1,10 +1,11 @@
 import {
-  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase, isEng
+  codeKey, engLowerCase, rusLowerCase, isEng,
 } from './keyLayout.js';
 
 import {
-  generationKeys, activeKeyboard
+  generationKeys, activeKeyboard,
 } from './app.js';
+
 
 function changeLanguage() {
   const btnLeng = document.querySelector('.header__language');
@@ -25,6 +26,7 @@ function changeLanguage() {
     generationKeys(rusLowerCase);
     activeKeyboard.array = [...rusLowerCase];
   }
+  return localStorage.setItem('language', JSON.stringify(isEng.boo));
 }
 
 function runOnKeys(...codes) {
@@ -52,3 +54,17 @@ runOnKeys(
   'MetaLeft',
   'Space',
 );
+
+function startLang() {
+  if (isEng.boo === true) {
+    activeKeyboard.array = [];
+    generationKeys(engLowerCase);
+    activeKeyboard.array = [...engLowerCase];
+  } else {
+    activeKeyboard.array = [];
+    generationKeys(rusLowerCase);
+    activeKeyboard.array = [...rusLowerCase];
+  }
+}
+
+startLang();

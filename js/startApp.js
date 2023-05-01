@@ -12,7 +12,7 @@ function startApp() {
     <h2 class="header__name">RSS Virtual Keyboard</h2>
     <div class="header__info">
       <p class="info__text info__text_bottom-line">Keyboard created in Macos</p>
-      <p class="info__text">Please use for change language<br>space + command (win)</p>
+      <p class="info__text">Please use for change language<br>space + left command (win)</p>
   </div>
   </header>
   <textarea class="keyboard-area__textarea textarea" id="textarea" rows="5" cols="50"></textarea>

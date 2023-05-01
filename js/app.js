@@ -1,5 +1,6 @@
 import {
-  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase, exceptions, isEng,
+  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase,
+  exceptions, isEng,
 } from './keyLayout.js';
 
 const activeKeyboard = {
@@ -7,12 +8,6 @@ const activeKeyboard = {
 };
 let activeKey = '';
 let indexPressKey;
-
-function getCL(data) {
-  return console.log(data);
-}
-
-getCL('test');
 
 const allBtn = document.querySelectorAll('.key');
 
@@ -90,21 +85,6 @@ keyboard.addEventListener('keyup', (event) => {
 
 const textArea = document.querySelector('.keyboard-area__textarea');
 
-// function getCaret(el)
-// {   if (el.selectionStart) {return el.selectionStart;} 
-//     else if (document.selection)
-//              { el.focus(); 
-//                var r = document.selection.createRange(); 
-//                if (r == null) {return 0;} 
-//                var re = el.createTextRange(), 
-//                    rc = re.duplicate(); 
-//                re.moveToBookmark(r.getBookmark()); 
-//                rc.setEndPoint('EndToStart', re); 
-//                return rc.text.length; 
-//              }  
-//     return 0; 
-// }
-
 function getCaretPos(obj) {
   return obj.selectionStart;
 }
@@ -148,7 +128,7 @@ function enterBtn(position) {
   result = result.join('');
 }
 
-function updateValue(e) {
+function updateValue() {
   const caretPos = getCaretPos(textArea);
   result = result.split('');
   if (activeKey !== '') {
@@ -173,7 +153,6 @@ function updateValue(e) {
 }
 
 textArea.addEventListener('input', updateValue);
-
 
 export {
   generationKeys, activeKeyboard,

@@ -1,32 +1,44 @@
 import {
-  codeKey, engLowerCase, rusLowerCase, isEng,
+  engLowerCase, rusLowerCase, engCaps, rusCaps, boolen,
 } from './keyLayout.js';
 
 import {
   generationKeys, activeKeyboard,
 } from './app.js';
 
-
 function changeLanguage() {
   const btnLeng = document.querySelector('.header__language');
-  if (isEng.boo === true) {
-    isEng.boo = false;
+  if (boolen.isEng === true) {
+    boolen.isEng = false;
     btnLeng.textContent = 'Ru';
   } else {
-    isEng.boo = true;
+    boolen.isEng = true;
     btnLeng.textContent = 'En';
   }
 
-  if (isEng.boo === true) {
-    activeKeyboard.array = [];
-    generationKeys(engLowerCase);
-    activeKeyboard.array = [...engLowerCase];
-  } else {
-    activeKeyboard.array = [];
-    generationKeys(rusLowerCase);
-    activeKeyboard.array = [...rusLowerCase];
+  if (boolen.isCaps === false) {
+    if (boolen.isEng === true) {
+      activeKeyboard.array = [];
+      generationKeys(engLowerCase);
+      activeKeyboard.array = [...engLowerCase];
+    } else {
+      activeKeyboard.array = [];
+      generationKeys(rusLowerCase);
+      activeKeyboard.array = [...rusLowerCase];
+    }
+  } else if (boolen.isCaps === true) {
+    if (boolen.isEng === true) {
+      activeKeyboard.array = [];
+      generationKeys(engCaps);
+      activeKeyboard.array = [...engCaps];
+    } else {
+      activeKeyboard.array = [];
+      generationKeys(rusCaps);
+      activeKeyboard.array = [...rusCaps];
+    }
   }
-  return localStorage.setItem('language', JSON.stringify(isEng.boo));
+
+  return localStorage.setItem('language', JSON.stringify(boolen.isEng));
 }
 
 function runOnKeys(...codes) {
@@ -35,11 +47,11 @@ function runOnKeys(...codes) {
   document.addEventListener('keydown', (event) => {
     pressed.add(event.code);
 
-    for (let code of codes) {
+    for (const code of codes) {
       if (!pressed.has(code)) {
         return;
-      };
-    };
+      }
+    }
     pressed.clear();
 
     changeLanguage();
@@ -51,12 +63,12 @@ function runOnKeys(...codes) {
 }
 
 runOnKeys(
-  'MetaLeft',
-  'Space',
+  'AltLeft',
+  'ControlLeft',
 );
 
 function startLang() {
-  if (isEng.boo === true) {
+  if (boolen.isEng === true) {
     activeKeyboard.array = [];
     generationKeys(engLowerCase);
     activeKeyboard.array = [...engLowerCase];

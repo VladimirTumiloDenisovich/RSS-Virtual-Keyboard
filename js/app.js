@@ -1,6 +1,6 @@
 import {
-  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase,
-  exceptions, isEng,
+  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase, engCaps, rusCaps,
+  exceptions, boolen,
 } from './keyLayout.js';
 
 const activeKeyboard = {
@@ -17,6 +17,8 @@ function generationKeys(layout) {
   }
 }
 
+let undoValue = [...activeKeyboard.array];
+
 function clickShift(position, value) {
   if (value === 'down') {
     if (position === 'left') {
@@ -24,17 +26,48 @@ function clickShift(position, value) {
     } else {
       allBtn[55].classList.add('key_active');
     }
-    if (isEng.boo === true) {
+    if (boolen.isEng === true) {
+      undoValue = [...activeKeyboard.array];
       activeKeyboard.array = [];
       generationKeys(engUpperCase);
       activeKeyboard.array = [...engUpperCase];
     } else {
+      undoValue = [...activeKeyboard.array];
       activeKeyboard.array = [];
       generationKeys(rusUpperCase);
       activeKeyboard.array = [...rusUpperCase];
     }
   } else if (value === 'up') {
-    if (isEng.boo === true) {
+    if (boolen.isEng === true) {
+      activeKeyboard.array = [];
+      generationKeys(undoValue);
+      activeKeyboard.array = [...undoValue];
+    } else {
+      activeKeyboard.array = [];
+      generationKeys(undoValue);
+      activeKeyboard.array = [...undoValue];
+    }
+  }
+}
+
+function clickCaps(value) {
+  if (value === 'down') {
+    boolen.isCaps = true;
+
+    if (boolen.isEng === true) {
+      activeKeyboard.array = [];
+      generationKeys(engCaps);
+      activeKeyboard.array = [...engCaps];
+    } else {
+      activeKeyboard.array = [];
+      generationKeys(rusCaps);
+      activeKeyboard.array = [...rusCaps];
+    }
+  }
+  if (value === 'up') {
+    boolen.isCaps = false;
+
+    if (boolen.isEng === true) {
       activeKeyboard.array = [];
       generationKeys(engLowerCase);
       activeKeyboard.array = [...engLowerCase];
@@ -64,12 +97,14 @@ keyboard.addEventListener('keydown', (event) => {
     clickShift('left', 'down');
   } else if (clickKey === 'ShiftRight') {
     clickShift('right', 'down');
+  } else if (clickKey === 'CapsLock') {
+    clickCaps('down');
   }
 });
 
 function clearKey(event) {
   const clickKey = event.code;
-  const indexPressKey = codeKey.findIndex((key) => key === clickKey);
+  indexPressKey = codeKey.findIndex((key) => key === clickKey);
   allBtn[indexPressKey].classList.remove('key_active');
 }
 
@@ -80,6 +115,8 @@ keyboard.addEventListener('keyup', (event) => {
     clickShift('left', 'up');
   } else if (clickKey === 'ShiftRight') {
     clickShift('right', 'up');
+  } else if (clickKey === 'CapsLock') {
+    clickCaps('up');
   }
 });
 
@@ -155,5 +192,5 @@ function updateValue() {
 textArea.addEventListener('input', updateValue);
 
 export {
-  generationKeys, activeKeyboard,
+  generationKeys, allBtn, activeKeyboard,
 };

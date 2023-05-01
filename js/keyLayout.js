@@ -3,14 +3,17 @@ const engLowerCase = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-'
 const engUpperCase = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 'Del', '⇪ CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '|', 'Enter', '⇧ Shift', '±', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '↑', '⇧ Shift', 'Control', 'Option', 'Command', ' ', 'Command', 'Option', '←', '↓', '→'];
 const rusLowerCase = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Del', '⇪ CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '\\', 'Enter', '⇧ Shift', ']', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '↑', '⇧ Shift', 'Control', 'Option', 'Command', ' ', 'Command', 'Option', '←', '↓', '→'];
 const rusUpperCase = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Del', '⇪ CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', '/', 'Enter', '⇧ Shift', '[', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', '↑', '⇧ Shift', 'Control', 'Option', 'Command', ' ', 'Command', 'Option', '←', '↓', '→'];
+const engCaps = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', 'Del', '⇪ CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', '\\', 'Enter', '⇧ Shift', '§', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '↑', '⇧ Shift', 'Control', 'Option', 'Command', ' ', 'Command', 'Option', '←', '↓', '→'];
+const rusCaps = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Del', '⇪ CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', '\\', 'Enter', '⇧ Shift', ']', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', '↑', '⇧ Shift', 'Control', 'Option', 'Command', ' ', 'Command', 'Option', '←', '↓', '→'];
 const exceptions = [13, 14, 27, 28, 41, 42, 55, 56, 57, 58, 60, 61];
-const isEng = {
-  boo: true,
+const boolen = {
+  isEng: true,
+  isCaps: false,
 };
 
-isEng.boo = JSON.parse(localStorage.getItem('language'));
+boolen.isEng = JSON.parse(localStorage.getItem('language'));
 
 export {
-  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase,
-  exceptions, isEng,
+  codeKey, engLowerCase, engUpperCase, rusLowerCase, rusUpperCase, engCaps, rusCaps,
+  exceptions, boolen,
 };

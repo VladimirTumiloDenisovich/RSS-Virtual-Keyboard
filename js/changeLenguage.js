@@ -3,7 +3,7 @@ import {
 } from './keyLayout.js';
 
 import {
-  generationKeys,
+  generationKeys, activeKeyboard
 } from './app.js';
 
 function changeLanguage() {
@@ -17,9 +17,13 @@ function changeLanguage() {
   }
 
   if (isEng.boo === true) {
+    activeKeyboard.array = [];
     generationKeys(engLowerCase);
+    activeKeyboard.array = [...engLowerCase];
   } else {
+    activeKeyboard.array = [];
     generationKeys(rusLowerCase);
+    activeKeyboard.array = [...rusLowerCase];
   }
 }
 

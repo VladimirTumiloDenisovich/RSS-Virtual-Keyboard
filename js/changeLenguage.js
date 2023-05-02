@@ -6,9 +6,9 @@ import {
 import {
   generationKeys, activeKeyboard,
 } from './app.js';
+const btnLeng = document.querySelector('.header__language');
 
 function changeLanguage() {
-  const btnLeng = document.querySelector('.header__language');
   if (boolen.isEng === true) {
     boolen.isEng = false;
     btnLeng.textContent = 'Ru';
@@ -42,30 +42,39 @@ function changeLanguage() {
   return localStorage.setItem('language', JSON.stringify(boolen.isEng));
 }
 
-const runOnKeys = () => {
-  let pressed;
+function pressDblKeys() {
+  let pressed = ['0'];
 
   document.addEventListener('keydown', (event) => {
-    pressed = new Set().add(event.code);
+    pressed.push(event.code);
 
-    if (pressed === 'AltLeft' || pressed === 'ControlLeft') {
+    if (pressed[0] === 'AltLeft' && pressed[1] === 'ControlLeft') {
       changeLanguage();
+      pressed = ['0'];
+      return pressed;
     }
-    pressed.clear();
+    if (pressed[0] === 'ControlLeft' && pressed[1] === 'AltLeft') {
+      changeLanguage();
+      pressed = ['0'];
+      return pressed;
+    }
+    return pressed.shift();
   });
-};
+}
 
-runOnKeys();
+pressDblKeys();
 
 function startLang() {
   if (boolen.isEng === true) {
     activeKeyboard.array = [];
     generationKeys(engLowerCase);
     activeKeyboard.array = [...engLowerCase];
+    btnLeng.textContent = 'En';
   } else {
     activeKeyboard.array = [];
     generationKeys(rusLowerCase);
     activeKeyboard.array = [...rusLowerCase];
+    btnLeng.textContent = 'Ru';
   }
 }
 

@@ -130,7 +130,7 @@ function startApp() {
         Del
     </button>
 
-    <button class="keyboard__key_medium key keyboard__key_raw-3">
+    <button class="keyboard__key_medium key keyboard__key_raw-3" id="CapsLock">
       CapsLock
     </button>
 
@@ -186,7 +186,7 @@ function startApp() {
         Enter
     </button>
 
-    <button class="keyboard__key_medium key keyboard__key_raw-4">
+    <button class="keyboard__key_medium key keyboard__key_raw-4" id="ShiftLeft">
       ⇧ Shift
     </button>
 
@@ -238,7 +238,7 @@ function startApp() {
       ↑
     </button>
 
-    <button class="keyboard__key_medium key keyboard__key_raw-4">
+    <button class="keyboard__key_medium key keyboard__key_raw-4" id="ShiftRight">
       ⇧ Shift
     </button>
     

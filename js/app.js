@@ -104,7 +104,12 @@ keyboard.addEventListener('keydown', (event) => {
 });
 
 function clearKey(event) {
-  const clickKey = event.code;
+  let clickKey;
+  if (event.code === undefined) {
+    clickKey = event;
+  } else {
+    clickKey = event.code;
+  }
   indexPressKey = codeKey.findIndex((key) => key === clickKey);
   allBtn[indexPressKey].classList.remove('key_active');
 }
@@ -205,12 +210,6 @@ function updateValue() {
 function mouseUpdateValue(key) {
   const caretPos = getCaretPos(textArea);
   activeKey = key;
-  result = result.split('');
-  if (activeKey !== '') {
-    result.splice(caretPos, 0, activeKey);
-  }
-  textArea.value = result.join('');
-  result = result.join('');
 
   if (activeKeyboard.array[indexPressKey] === 'Backspace') {
     backspaceMouseBtn(caretPos);
@@ -227,6 +226,18 @@ function mouseUpdateValue(key) {
     return setSelectionRange(textArea, caretPos + 1, caretPos + 1);
   }
 
+  result = result.split('');
+  if (activeKey !== '') {
+    result.splice(caretPos, 0, activeKey);
+  } else {
+    textArea.value = result.join('');
+    result = result.join('');
+    textArea.focus();
+    return setSelectionRange(textArea, caretPos, caretPos);
+  }
+  textArea.value = result.join('');
+  result = result.join('');
+
   textArea.focus();
   return setSelectionRange(textArea, caretPos + 1, caretPos + 1);
 }
@@ -234,20 +245,54 @@ function mouseUpdateValue(key) {
 textArea.addEventListener('input', updateValue);
 
 keyboard.addEventListener('click', (event) => {
+  indexPressKey = activeKeyboard.array.findIndex((key) => key === event.target.innerText);
   if (event.target.localName === 'button') {
-    if (event.target.innerText === '') {
-      return mouseUpdateValue(' ');
-    }
-    indexPressKey = activeKeyboard.array.findIndex((key) => key === event.target.innerText);
     if (exceptions.indexOf(indexPressKey) === -1) {
       activeKey = activeKeyboard.array[indexPressKey];
     } else {
       activeKey = '';
     }
-
     return mouseUpdateValue(activeKey);
   }
-  return NaN;
+  return 0;
+});
+
+let capsPosition = false;
+const btnCapsLock = document.querySelector('#CapsLock');
+const btnLeftShift = document.querySelector('#ShiftLeft');
+const btnRightShift = document.querySelector('#ShiftRight');
+
+keyboard.addEventListener('mousedown', (event) => {
+  if (event.target.id === btnLeftShift.id) {
+    return clickShift('left', 'down');
+  }
+  if (event.target.id === btnRightShift.id) {
+    return clickShift('right', 'down');
+  }
+  if (event.target.id === btnCapsLock.id) {
+    if (capsPosition === true) {
+      clickCaps('up');
+      clearKey(event.target.id);
+    } else {
+      allBtn[28].classList.add('key_active');
+
+      clickCaps('down');
+    }
+    capsPosition = !capsPosition;
+  }
+  return 0;
+});
+
+keyboard.addEventListener('mouseup', (event) => {
+  if (event.target.id === btnLeftShift.id) {
+    clearKey(event.target.id);
+    return clickShift('left', 'up');
+  }
+  if (event.target.id === btnRightShift.id) {
+    clearKey(event.target.id);
+    return clickShift('right', 'up');
+  }
+  return 0;
 });
 
 export {

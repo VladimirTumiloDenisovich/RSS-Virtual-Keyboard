@@ -145,6 +145,19 @@
   border: 2px solid #b9b9b9;
 }
 
+#CapsLock:active {
+  color: #c3c082;
+  background: #191919;
+  border: 2px solid #191919;
+}
+
+#ShiftLeft:active,
+#ShiftRight:active {
+  color: #191919;
+  background: #c69fc4;
+  border: 2px solid #b9b9b9;
+}
+
 .key_active {
   color: #191919;
   background: #c69fc4;

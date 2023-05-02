@@ -124,34 +124,16 @@ keyboard.addEventListener('keyup', (event) => {
 const textArea = document.querySelector('.keyboard-area__textarea');
 
 function getCaretPos(obj) {
-  if (obj.selectionStart) {
+  if (obj.selectionStart !== false) {
     return obj.selectionStart;
-  }
-  if (document.selection) {
-    obj.focus();
-    const r = document.selection.createRange();
-    if (r == null) {
-      return 0;
-    }
-    const re = obj.createTextRange();
-    const rc = re.duplicate();
-    re.moveToBookmark(r.getBookmark());
-    rc.setEndPoint('EndToStart', re);
-    return rc.text.length;
   }
   return 0;
 }
 
-function setSelectionRange(input, selectionStart, selectionEnd) {
+function setSelectionRange(input, Start, End) {
   if (input.setSelectionRange) {
     input.focus();
-    input.setSelectionRange(selectionStart, selectionEnd);
-  } else if (input.createTextRange) {
-    const range = input.createTextRange();
-    range.collapse(true);
-    range.moveEnd('character', selectionEnd);
-    range.moveStart('character', selectionStart);
-    range.select();
+    input.setSelectionRange(Start, End);
   }
 }
 
@@ -217,7 +199,6 @@ function updateValue() {
   if (activeKeyboard.array[indexPressKey] === 'Enter') {
     enterBtn(caretPos);
   }
-
   setSelectionRange(textArea, caretPos, caretPos);
 }
 
@@ -233,17 +214,21 @@ function mouseUpdateValue(key) {
 
   if (activeKeyboard.array[indexPressKey] === 'Backspace') {
     backspaceMouseBtn(caretPos);
+    return setSelectionRange(textArea, caretPos - 1, caretPos - 1);
   }
 
   if (activeKeyboard.array[indexPressKey] === 'Del') {
     deleteBtn(caretPos);
+    return setSelectionRange(textArea, caretPos, caretPos);
   }
 
   if (activeKeyboard.array[indexPressKey] === 'Enter') {
     enterMouseBtn(caretPos);
+    return setSelectionRange(textArea, caretPos + 1, caretPos + 1);
   }
 
   textArea.focus();
+  return setSelectionRange(textArea, caretPos + 1, caretPos + 1);
 }
 
 textArea.addEventListener('input', updateValue);

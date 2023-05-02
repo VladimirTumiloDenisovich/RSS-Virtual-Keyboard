@@ -1,5 +1,4 @@
 /* eslint-disable import/extensions */
-/* eslint-disable no-restricted-syntax */
 import {
   engLowerCase, rusLowerCase, engCaps, rusCaps, boolen,
 } from './keyLayout.js';
@@ -43,31 +42,20 @@ function changeLanguage() {
   return localStorage.setItem('language', JSON.stringify(boolen.isEng));
 }
 
-function runOnKeys(...codes) {
-  const pressed = new Set();
+const runOnKeys = () => {
+  let pressed;
 
   document.addEventListener('keydown', (event) => {
-    pressed.add(event.code);
+    pressed = new Set().add(event.code);
 
-    for (const code of codes) {
-      if (!pressed.has(code)) {
-        return;
-      }
+    if (pressed === 'AltLeft' || pressed === 'ControlLeft') {
+      changeLanguage();
     }
     pressed.clear();
-
-    changeLanguage();
   });
+};
 
-  document.addEventListener('keyup', (event) => {
-    pressed.delete(event.code);
-  });
-}
-
-runOnKeys(
-  'AltLeft',
-  'ControlLeft',
-);
+runOnKeys();
 
 function startLang() {
   if (boolen.isEng === true) {

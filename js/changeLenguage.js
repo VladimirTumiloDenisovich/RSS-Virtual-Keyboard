@@ -6,6 +6,7 @@ import {
 import {
   generationKeys, activeKeyboard,
 } from './app.js';
+
 const btnLeng = document.querySelector('.header__language');
 
 function changeLanguage() {
